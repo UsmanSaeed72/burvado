@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BURVADO — Artisan Pastured Beef Burgers</title>
+  <meta name="description" content="Burvado — artisan pastured beef burgers in Park View City, Lahore.">
+  <meta name="theme-color" content="#050505">
+  <link rel="icon" href="../assets/brand/logo.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="is-intro">
+  <div class="intro" id="intro">
+    <div class="intro-lockup">
+      <p class="intro-count mono" aria-hidden="true">000</p>
+      <div class="intro-word" aria-label="Burvado">
+        <span><i>B</i></span><span><i>U</i></span><span><i>R</i></span><span><i>V</i></span><span><i>A</i></span><span><i>D</i></span><span><i>O</i></span>
+      </div>
+      <div class="intro-line"></div>
+      <p class="intro-sub">Artisan pastured beef burgers</p>
+    </div>
+    <button class="skip" type="button">Skip</button>
+  </div>
+
+  <div class="progress" aria-hidden="true"><i></i></div>
+
+  <header class="nav">
+    <a class="brand" href="#top">BURVADO</a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#parallel">Parallel</a>
+      <a href="#line">The line</a>
+      <a href="#board">Menu</a>
+      <a href="#visit">Visit</a>
+    </nav>
+    <div class="nav-right">
+      <p class="clock mono"><span id="clock">00:00:00</span> <span class="clock-zone">PKT</span></p>
+      <a class="order" href="tel:+923255048602">Order</a>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet">Menu</button>
+    </div>
+  </header>
+
+  <div class="sheet" id="sheet" hidden>
+    <button class="sheet-close" type="button">Close</button>
+    <a href="#parallel">Parallel</a>
+    <a href="#line">The line</a>
+    <a href="#board">Menu</a>
+    <a href="#visit">Visit</a>
+    <a href="tel:+923255048602">Order 0325-5048602</a>
+  </div>
+
+  <p class="hud mono" aria-hidden="true"><span id="hud-index">01</span><span id="hud-name">Hero</span></p>
+
+  <main>
+    <section class="hero" id="top">
+      <div class="hero-media">
+        <img class="shot-b" src="../assets/images/dolci_flame.jpg" alt="">
+        <img class="shot-a" src="../assets/images/scarlet_glaze.jpg" alt="Scarlet Glaze, held in hand">
+      </div>
+      <div class="hero-copy">
+        <p class="kicker">Park View City · Lahore</p>
+        <h1 class="word">
+          <span class="ghost">BURVADO</span>
+          <span class="fill-mask" aria-hidden="true"><span class="fill">BURVADO</span></span>
+        </h1>
+        <div class="rule" aria-hidden="true"></div>
+        <p class="tag">Artisan pastured beef burgers</p>
+        <div class="lanes" aria-hidden="true">
+          <div class="lane"><span>Beef</span><div class="lane-rail"><i></i></div></div>
+          <div class="lane"><span>Crew</span><div class="lane-rail"><i></i></div></div>
+          <div class="lane"><span>Sauce</span><div class="lane-rail"><i></i></div></div>
+        </div>
+      </div>
+      <div class="marquee" aria-hidden="true">
+        <div class="marquee-track" id="hero-marquee">
+          <span>Scarlet Glaze</span><span>799</span>
+          <span>Dolci Flame</span><span>790</span>
+          <span>Prime Pasture</span><span>840</span>
+          <span>Shroom Melt</span><span>899</span>
+          <span>Noir Sando</span><span>749</span>
+          <span>Crunch Vado</span><span>649</span>
+          <span>Dynamite</span><span>549</span>
+          <span>Peach Drift</span><span>549</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="outline-wrap" aria-hidden="true">
+      <div class="outline-track" id="sauce-marquee">
+        <span>Crimson Ember</span><span>Velour Blanc</span><span>Truffle Shroom</span><span>Sundried Elixir</span><span>Fume</span><span>Atomic Cream</span>
+      </div>
+    </div>
+
+    <section class="parallel" id="parallel">
+      <div class="parallel-copy">
+        <p class="kicker reveal">02 — The pass</p>
+        <h2 class="reveal">Nothing waits in line.</h2>
+        <p class="deck reveal">Beef, crew, and sauce run on three clocks. Same minute. One pass.</p>
+      </div>
+      <div class="cols">
+        <div class="col" data-speed="26" data-dir="up">
+          <p class="col-label">Beef</p>
+          <div class="col-window">
+            <div class="col-track">
+              <article class="cell">
+                <img src="../assets/images/scarlet_glaze.jpg" alt="Scarlet Glaze burger">
+                <span>Scarlet Glaze</span>
+              </article>
+              <article class="cell">
+                <img src="../assets/images/dolci_flame.jpg" alt="Dolci Flame burger">
+                <span>Dolci Flame</span>
+              </article>
+              <article class="cell">
+                <img src="../assets/images/shroom_melt.jpg" alt="Shroom Melt burger">
+                <span>Shroom Melt</span>
+              </article>
+              <article class="cell">
+                <img src="../assets/images/shroom_hand.jpg" alt="Shroom Melt in hand">
+                <span>In hand</span>
+              </article>
+            </div>
+          </div>
+        </div>
+        <div class="col" data-speed="34" data-dir="down">
+          <p class="col-label">Crew</p>
+          <div class="col-window">
+            <div class="col-track">
+              <article class="cell">
+                <img src="../assets/images/the_pass.jpg" alt="Two cooks finishing an order on the pass">
+                <span>The pass</span>
+              </article>
+              <article class="cell">
+                <img src="../assets/images/crew_kitchen.jpg" alt="Burvado kitchen">
+                <span>The kitchen</span>
+              </article>
+              <article class="cell">
+                <img src="../assets/images/crew_table.jpg" alt="Burgers on the crew table">
+                <span>The table</span>
+              </article>
+              <article class="cell">
+                <img src="../assets/images/the_stack.jpg" alt="A tall stack on the flat top">
+                <span>The stack</span>
+              </article>
+            </div>
+          </div>
+        </div>
+        <div class="col" data-speed="22" data-dir="up">
+          <p class="col-label">Sauce</p>
+          <div class="col-window">
+            <div class="col-track">
+              <article class="cell cell-type"><strong>Crimson Ember</strong><em>149 RS</em></article>
+              <article class="cell cell-type"><strong>Velour Blanc</strong><em>149 RS</em></article>
+              <article class="cell cell-type"><strong>Sundried Elixir</strong><em>149 RS</em></article>
+              <article class="cell cell-type"><strong>Fume Sauce</strong><em>149 RS</em></article>
+              <article class="cell cell-type"><strong>Atomic Cream</strong><em>149 RS</em></article>
+              <article class="cell cell-type"><strong>Truffle Shroom</strong><em>249 RS</em></article>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="reel" id="line">
+      <div class="reel-track">
+        <article class="plate">
+          <div class="plate-copy">
+            <header><span class="mono">01 / 04</span><span>Beef</span></header>
+            <div>
+              <h3>Scarlet Glaze</h3>
+              <p>Australian beef patty, signature Crimson Ember sauce, slow caramelized onions, crisp lettuce and a bold sweet-tangy finish. Layered in the Mouth Melt potato bun.</p>
+              <p class="price"><span>Single</span> 799 RS <span>Double</span> 999 RS</p>
+            </div>
+          </div>
+          <div class="plate-visual">
+            <img src="../assets/images/scarlet_glaze.jpg" alt="Scarlet Glaze">
+          </div>
+        </article>
+        <article class="plate">
+          <div class="plate-copy">
+            <header><span class="mono">02 / 04</span><span>Beef</span></header>
+            <div>
+              <h3>Dolci Flame</h3>
+              <p>Australian beef glazed in rich Velour Blanc, caramelized onions, jalapeño cheese, lettuce and Burvado sauce. Stacked in the Mouth Melt bun with a mild salty kick.</p>
+              <p class="price"><span>Single</span> 790 RS <span>Double</span> 990 RS</p>
+            </div>
+          </div>
+          <div class="plate-visual">
+            <img src="../assets/images/dolci_flame.jpg" alt="Dolci Flame">
+          </div>
+        </article>
+        <article class="plate">
+          <div class="plate-copy">
+            <header><span class="mono">03 / 04</span><span class="badge">Signature 2.0</span></header>
+            <div>
+              <h3>Prime Pasture</h3>
+              <p>Australian beef, fresh lettuce, ripe tomatoes and a delicate layer of Burvado’s signature sundry sauce. Served in the Mouth Melt potato bun.</p>
+              <p class="price"><span>Single</span> 840 RS <span>Double</span> 1049 RS</p>
+            </div>
+          </div>
+          <div class="plate-visual">
+            <img src="../assets/images/the_pass.jpg" alt="Prime Pasture built on the pass">
+          </div>
+        </article>
+        <article class="plate is-bone">
+          <div class="plate-copy">
+            <header><span class="mono">04 / 04</span><span class="badge">Signature 1.0</span></header>
+            <div>
+              <h3>Shroom Melt</h3>
+              <p>Australian beef, sautéed mushrooms, caramelized onions, melted cheese and Truffle Shroom sauce. Served in the Mouth Melt potato bun.</p>
+              <p class="price"><span>Single</span> 899 RS <span>Double</span> 1099 RS</p>
+            </div>
+          </div>
+          <div class="plate-visual">
+            <img src="../assets/images/shroom_melt.jpg" alt="Shroom Melt">
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="board" id="board">
+      <div class="board-head">
+        <p class="kicker reveal">04 — The board</p>
+        <h2 class="reveal">Order off the pass.</h2>
+      </div>
+
+      <div class="group">
+        <h3 class="group-label">Beef burgers</h3>
+        <a class="ticket" href="#line" data-img="../assets/images/scarlet_glaze.jpg">
+          <span class="ticket-station">Beef</span>
+          <span class="ticket-body"><strong>Scarlet Glaze</strong><em>Australian beef, Crimson Ember, caramelized onions, Mouth Melt bun.</em></span>
+          <span class="ticket-price">Single 799<span>Double 999</span></span>
+        </a>
+        <a class="ticket" href="#line" data-img="../assets/images/dolci_flame.jpg">
+          <span class="ticket-station">Beef</span>
+          <span class="ticket-body"><strong>Dolci Flame</strong><em>Velour Blanc, jalapeño cheese, Burvado sauce, Mouth Melt bun.</em></span>
+          <span class="ticket-price">Single 790<span>Double 990</span></span>
+        </a>
+        <a class="ticket" href="#line" data-img="../assets/images/the_pass.jpg">
+          <span class="ticket-station">Beef</span>
+          <span class="ticket-body"><strong>Prime Pasture</strong><em>Signature 2.0. Lettuce, tomato, sundry sauce, Mouth Melt bun.</em></span>
+          <span class="ticket-price">Single 840<span>Double 1049</span></span>
+        </a>
+        <a class="ticket" href="#line" data-img="../assets/images/shroom_melt.jpg">
+          <span class="ticket-station">Beef</span>
+          <span class="ticket-body"><strong>Shroom Melt</strong><em>Signature 1.0. Mushrooms, cheese, Truffle Shroom sauce.</em></span>
+          <span class="ticket-price">Single 899<span>Double 1099</span></span>
+        </a>
+      </div>
+
+      <div class="group">
+        <h3 class="group-label">Street hits</h3>
+        <a class="ticket" href="tel:+923255048602" data-img="../assets/images/crew_table.jpg">
+          <span class="ticket-station">Street</span>
+          <span class="ticket-body"><strong>Crunch Vado</strong><em>Crispy chicken, lettuce, cheese, fume sauce, Mouth Melt bun.</em></span>
+          <span class="ticket-price">Plate 649</span>
+        </a>
+        <a class="ticket" href="tel:+923255048602">
+          <span class="ticket-station">Street</span>
+          <span class="ticket-body"><strong>Noir Sando</strong><em>Signature 3.0. Milk bread, crispy chicken, sando sauce, black pepper, pickles.</em></span>
+          <span class="ticket-price">Plate 749</span>
+        </a>
+        <a class="ticket" href="tel:+923255048602" data-img="../assets/images/crew_kitchen.jpg">
+          <span class="ticket-station">Street</span>
+          <span class="ticket-body"><strong>Dynamite Chicken</strong><em>Chicken bites in creamy, spicy dynamite sauce.</em></span>
+          <span class="ticket-price">Plate 549</span>
+        </a>
+      </div>
+
+      <div class="group">
+        <h3 class="group-label">Sides</h3>
+        <div class="ticket">
+          <span class="ticket-station">Side</span>
+          <span class="ticket-body"><strong>Okra Fries</strong><em>Crisp okra, salted, ready for the bag.</em></span>
+          <span class="ticket-price">Hit 470</span>
+        </div>
+        <div class="ticket">
+          <span class="ticket-station">Side</span>
+          <span class="ticket-body"><strong>Extra Beef 100g</strong><em>Another Australian beef patty for the stack.</em></span>
+          <span class="ticket-price">Patty 290</span>
+        </div>
+      </div>
+
+      <div class="group">
+        <h3 class="group-label">Sauces</h3>
+        <div class="ticket"><span class="ticket-station">Sauce</span><span class="ticket-body"><strong>Velour Blanc</strong><em>The white glaze. Cream, pepper, hush.</em></span><span class="ticket-price">Cup 149</span></div>
+        <div class="ticket"><span class="ticket-station">Sauce</span><span class="ticket-body"><strong>Crimson Ember</strong><em>Sweet-tangy fire. The Scarlet companion.</em></span><span class="ticket-price">Cup 149</span></div>
+        <div class="ticket"><span class="ticket-station">Sauce</span><span class="ticket-body"><strong>Sundried Elixir</strong><em>The sundry sauce. Prime Pasture’s quiet layer.</em></span><span class="ticket-price">Cup 149</span></div>
+        <div class="ticket"><span class="ticket-station">Sauce</span><span class="ticket-body"><strong>Fume Sauce</strong><em>Smoke for Crunch Vado and the street line.</em></span><span class="ticket-price">Cup 149</span></div>
+        <div class="ticket"><span class="ticket-station">Sauce</span><span class="ticket-body"><strong>Atomic Cream</strong><em>Heat in a cup. Keep it close.</em></span><span class="ticket-price">Cup 149</span></div>
+        <div class="ticket"><span class="ticket-station">Sauce</span><span class="ticket-body"><strong>Truffle Shroom</strong><em>The melt’s other half. Earth and cream.</em></span><span class="ticket-price">Cup 249</span></div>
+      </div>
+
+      <div class="group">
+        <h3 class="group-label">Drinks</h3>
+        <div class="ticket"><span class="ticket-station">Drink</span><span class="ticket-body"><strong>Peach Drift</strong><em>Smooth peach iced tea, chilled with lemon and mint.</em></span><span class="ticket-price">Glass 549</span></div>
+        <div class="ticket"><span class="ticket-station">Drink</span><span class="ticket-body"><strong>Berry Bliss Tea</strong><em>Iced tea with raspberry, lemon, and mint.</em></span><span class="ticket-price">Glass 599</span></div>
+        <div class="ticket"><span class="ticket-station">Drink</span><span class="ticket-body"><strong>Coke 250ml</strong><em>Daily hub.</em></span><span class="ticket-price">Can 150</span></div>
+        <div class="ticket"><span class="ticket-station">Drink</span><span class="ticket-body"><strong>7UP 250ml</strong><em>Daily hub.</em></span><span class="ticket-price">Can 150</span></div>
+        <div class="ticket"><span class="ticket-station">Drink</span><span class="ticket-body"><strong>Mineral Water</strong><em>Still, cold.</em></span><span class="ticket-price">Bottle 150</span></div>
+      </div>
+    </section>
+
+    <section class="visit" id="visit">
+      <img src="../assets/images/night_gate.jpg" alt="Burvado bags at the Park View City gate, Lahore, at night">
+      <div class="visit-shade"></div>
+      <div class="visit-copy">
+        <p class="kicker">05 — Lahore</p>
+        <h2>Park View City.</h2>
+        <a class="big-phone" href="tel:+923255048602">0325-5048602</a>
+        <p class="phone-label">Order line</p>
+        <ul class="visit-links">
+          <li><a href="tel:+923247268204">0324-7268204</a><span>Complaints</span></li>
+          <li><a href="mailto:burvado.pk@gmail.com">burvado.pk@gmail.com</a><span>Email</span></li>
+          <li><a href="https://instagram.com/burvado.pk" target="_blank" rel="noopener">@burvado.pk</a><span>Instagram</span></li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="outline-wrap foot-wrap" aria-hidden="true">
+      <div class="outline-track fill-track" id="foot-marquee">
+        <span>Burvado</span><span>Lahore</span><span>Burvado</span><span>Park View City</span>
+      </div>
+    </div>
+    <div class="foot-meta">
+      <span>Burvado</span>
+      <span>Park View City, Lahore</span>
+      <a href="tel:+923255048602">0325-5048602</a>
+    </div>
+  </footer>
+
+  <div class="preview" aria-hidden="true"><img alt=""></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.7/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>
