@@ -1421,8 +1421,7 @@ body.bag-open {
 }
 
 .thanks-back,
-.thanks-ig,
-.thanks-review {
+.thanks-ig {
   display: inline-flex;
   align-items: center;
   justify-content: center;
