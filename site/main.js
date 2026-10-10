@@ -23,6 +23,10 @@
     "../assets/images/scarlet_glaze.jpg",
     "../assets/images/dolci_flame.jpg",
     "../assets/images/shroom_melt.jpg",
+    "../assets/images/noir_sando.jpg",
+    "../assets/images/dynamite_chicken.jpg",
+    "../assets/images/the_bite.jpg",
+    "../assets/images/the_drive.jpg",
     "../assets/images/the_stack.jpg",
   ];
 
@@ -467,6 +471,7 @@
     const emptyEl = document.getElementById("bag-empty");
     const form = document.getElementById("bag-form");
     const foot = document.getElementById("bag-foot");
+    const pack = document.getElementById("bag-pack");
     const totalEl = document.getElementById("bag-total");
     const errorEl = document.getElementById("bag-error");
     const countEl = document.getElementById("order-count");
@@ -558,7 +563,13 @@
       const to = orderBtn.getBoundingClientRect();
       const chip = document.createElement("span");
       chip.className = "fly-chip";
-      chip.textContent = label;
+      const bagImg = document.createElement("img");
+      bagImg.src = "../assets/images/takeaway_bag.jpg";
+      bagImg.alt = "";
+      const bagName = document.createElement("span");
+      bagName.textContent = label;
+      chip.appendChild(bagImg);
+      chip.appendChild(bagName);
       document.body.appendChild(chip);
       gsap.set(chip, { x: from.left, y: from.top });
       gsap.to(chip, {
@@ -614,6 +625,7 @@
       emptyEl.hidden = lines.length > 0;
       form.hidden = lines.length === 0;
       if (foot) foot.hidden = lines.length === 0;
+      if (pack) pack.hidden = lines.length === 0;
       totalEl.textContent = "Rs " + total();
       const row = pulseIndex == null ? null : linesEl.children[pulseIndex];
       const itemsWrap = document.getElementById("bag-items");

@@ -1028,6 +1028,45 @@ h1, h2, h3, p {
   font-size: clamp(32px, 8vw, 42px);
 }
 
+.bag-pack {
+  flex: none;
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  gap: 12px;
+  align-items: center;
+  margin: 0 20px 8px;
+  padding: 8px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.bag-pack[hidden] {
+  display: none;
+}
+
+.bag-pack img {
+  width: 84px;
+  height: 108px;
+  object-fit: cover;
+  object-position: 40% 62%;
+}
+
+.bag-pack p {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--mute);
+}
+
+.bag-pack strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--bone);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
 .bag-items {
   flex: 0 0 auto;
   min-height: 0;
@@ -1248,6 +1287,11 @@ h1, h2, h3, p {
     padding-right: 16px;
   }
 
+  .bag-pack {
+    margin-left: 16px;
+    margin-right: 16px;
+  }
+
   .bag-lines li {
     gap: 6px 8px;
     align-items: center;
@@ -1285,13 +1329,23 @@ body.bag-open {
   top: 0;
   z-index: 95;
   pointer-events: none;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   background: var(--bone);
   color: var(--ink);
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  padding: 8px 10px;
+  padding: 6px 10px 6px 6px;
+}
+
+.fly-chip img {
+  width: 28px;
+  height: 36px;
+  object-fit: cover;
+  object-position: 40% 62%;
 }
 
 .thanks {
