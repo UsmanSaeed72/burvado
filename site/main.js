@@ -502,19 +502,87 @@
       else if (reduced || introDone) lenis.start();
     }
 
+    let bagBusy = false;
+
+    function motion() {
+      return window.gsap && !reduced;
+    }
+
     function openBag() {
+      const firstOpen = bag.hidden;
       bag.hidden = false;
       lock(true);
       const close = bag.querySelector(".bag-close");
       if (close) close.focus();
+      if (!motion() || !firstOpen) return;
+      gsap.killTweensOf([bag, ".bag-panel"]);
+      gsap.fromTo(bag, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.35, ease: "power2.out" });
+      gsap.fromTo(".bag-panel", { x: 72 }, { x: 0, duration: 0.75, ease: "power3.out" });
+      gsap.from(".bag-lines li, .bag-form > *", {
+        y: 16,
+        autoAlpha: 0,
+        stagger: 0.045,
+        duration: 0.5,
+        ease: "power3.out",
+        delay: 0.12,
+      });
     }
 
     function closeBag() {
-      bag.hidden = true;
-      lock(false);
+      if (bag.hidden || bagBusy) return;
+      if (!motion()) {
+        bag.hidden = true;
+        lock(false);
+        return;
+      }
+      bagBusy = true;
+      gsap.killTweensOf([bag, ".bag-panel"]);
+      gsap.to(".bag-panel", { x: 64, duration: 0.4, ease: "power2.in" });
+      gsap.to(bag, {
+        autoAlpha: 0,
+        duration: 0.35,
+        ease: "power2.in",
+        onComplete: function () {
+          bag.hidden = true;
+          gsap.set(bag, { autoAlpha: 1 });
+          gsap.set(".bag-panel", { x: 0 });
+          bagBusy = false;
+          lock(false);
+        },
+      });
     }
 
-    function render() {
+    function flyToOrder(button, label) {
+      const orderBtn = document.getElementById("open-order");
+      if (!motion() || !orderBtn) return;
+      const from = button.getBoundingClientRect();
+      const to = orderBtn.getBoundingClientRect();
+      const chip = document.createElement("span");
+      chip.className = "fly-chip";
+      chip.textContent = label;
+      document.body.appendChild(chip);
+      gsap.set(chip, { x: from.left, y: from.top });
+      gsap.to(chip, {
+        x: to.left,
+        y: to.top,
+        scale: 0.55,
+        autoAlpha: 0.15,
+        duration: 0.7,
+        ease: "power3.inOut",
+        onComplete: function () { chip.remove(); },
+      });
+      gsap.fromTo(orderBtn, { scale: 1 }, {
+        scale: 1.08,
+        duration: 0.18,
+        yoyo: true,
+        repeat: 1,
+        delay: 0.5,
+        ease: "power2.out",
+        transformOrigin: "center center",
+      });
+    }
+
+    function render(pulseIndex) {
       const n = count();
       if (countEl) {
         countEl.hidden = n === 0;
@@ -547,6 +615,13 @@
       emptyEl.hidden = lines.length > 0;
       form.hidden = lines.length === 0;
       totalEl.textContent = "Rs " + total();
+      if (motion() && pulseIndex != null) {
+        gsap.fromTo(totalEl, { autoAlpha: 0.35 }, { autoAlpha: 1, duration: 0.35, ease: "power2.out" });
+      }
+      if (pulseIndex == null || !motion()) return;
+      const row = linesEl.children[pulseIndex];
+      if (!row) return;
+      gsap.fromTo(row, { y: 14, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45, ease: "power3.out" });
     }
 
     document.querySelectorAll(".add").forEach(function (button) {
@@ -561,10 +636,20 @@
         const existing = lines.find(function (line) {
           return line.id === item.id && line.cut === item.cut;
         });
-        if (existing) existing.qty += 1;
-        else lines.push(item);
+        let index;
+        if (existing) {
+          existing.qty += 1;
+          index = lines.indexOf(existing);
+        } else {
+          lines.push(item);
+          index = lines.length - 1;
+        }
         save();
-        render();
+        if (motion()) {
+          gsap.fromTo(button, { scale: 1 }, { scale: 0.92, duration: 0.1, yoyo: true, repeat: 1, ease: "power2.out" });
+        }
+        flyToOrder(button, item.name);
+        render(index);
         openBag();
       });
     });
@@ -583,6 +668,9 @@
         const delivery = how === "Delivery";
         addressField.hidden = !delivery;
         addressField.querySelector("input").required = delivery;
+        if (delivery && motion()) {
+          gsap.fromTo(addressField, { y: -10, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.4, ease: "power3.out" });
+        }
         showError("");
       });
     });
@@ -623,9 +711,63 @@
       });
       messageLines.push("", "*Subtotal: Rs " + total() + "*", "(Thank you For Ordering Burvado)");
       const message = messageLines.join("\n");
+      const due = total();
+      const who = name;
+      const sentHow = how;
       showError("");
-      window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(message), "_blank", "noopener");
+      const waUrl = "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
+      window.open(waUrl, "_blank", "noopener");
+      lines = [];
+      how = "Takeaway";
+      save();
+      form.reset();
+      bag.querySelectorAll(".how-btn").forEach(function (el) {
+        el.classList.toggle("is-on", el.dataset.how === "Takeaway");
+      });
+      addressField.hidden = true;
+      addressField.querySelector("input").required = false;
+      render();
+      showThanks(who + " · " + sentHow + " · Rs " + due, waUrl);
     });
+
+    function showThanks(detail, waUrl) {
+      const thanks = document.getElementById("thanks");
+      const detailEl = document.getElementById("thanks-detail");
+      const wa = document.getElementById("thanks-wa");
+      if (!thanks) return;
+      bag.hidden = true;
+      if (window.gsap) gsap.killTweensOf([bag, ".bag-panel"]);
+      detailEl.textContent = detail;
+      wa.href = waUrl;
+      thanks.hidden = false;
+      lock(true);
+      if (!motion()) return;
+      gsap.set(".thanks-rule", { scaleX: 0 });
+      gsap.timeline()
+        .fromTo(thanks, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.45, ease: "power2.out" })
+        .fromTo(".thanks-kicker", { y: 14, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.5, ease: "power3.out" }, 0.12)
+        .fromTo(".thanks-word i", { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.85, stagger: 0.055, ease: "power4.out" }, 0.2)
+        .fromTo(".thanks-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power3.inOut" }, 0.55)
+        .fromTo(".thanks-detail, .thanks-wa, .thanks-back", { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.55, stagger: 0.08, ease: "power3.out" }, 0.78);
+    }
+
+    function hideThanks() {
+      const thanks = document.getElementById("thanks");
+      if (!thanks || thanks.hidden) return;
+      function done() {
+        thanks.hidden = true;
+        if (window.gsap) gsap.set(thanks, { autoAlpha: 1 });
+        lock(false);
+        scrollToHash("#board");
+      }
+      if (!motion()) {
+        done();
+        return;
+      }
+      gsap.to(thanks, { autoAlpha: 0, duration: 0.45, ease: "power2.inOut", onComplete: done });
+    }
+
+    document.querySelector(".thanks-back").addEventListener("click", hideThanks);
 
     document.getElementById("open-order").addEventListener("click", function () {
       if (!lines.length) {
@@ -653,7 +795,13 @@
       if (event.target === bag) closeBag();
     });
     document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape" && !bag.hidden) closeBag();
+      if (event.key !== "Escape") return;
+      const thanks = document.getElementById("thanks");
+      if (thanks && !thanks.hidden) {
+        hideThanks();
+        return;
+      }
+      if (!bag.hidden) closeBag();
     });
 
     render();

@@ -1181,6 +1181,110 @@ body.bag-open {
   overflow: hidden;
 }
 
+.fly-chip {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 95;
+  pointer-events: none;
+  background: var(--bone);
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 8px 10px;
+}
+
+.thanks {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  background: #050505;
+  color: #fff;
+  text-align: center;
+  padding: 32px 20px;
+}
+
+.thanks[hidden] {
+  display: none;
+}
+
+.thanks-lockup {
+  width: min(920px, 100%);
+}
+
+.thanks-kicker {
+  letter-spacing: 0.28em;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+.thanks-word {
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+  font-family: Anton, sans-serif;
+  font-size: clamp(64px, 12vw, 148px);
+  line-height: 0.9;
+  letter-spacing: 0.02em;
+}
+
+.thanks-word span {
+  display: inline-block;
+}
+
+.thanks-word i {
+  display: inline-block;
+  font-style: normal;
+}
+
+.thanks-gap {
+  width: 0.28em;
+}
+
+.thanks-rule {
+  height: 1px;
+  width: min(42vw, 280px);
+  margin: 22px auto 18px;
+  background: #fff;
+  transform-origin: center;
+}
+
+.thanks-detail {
+  font-size: clamp(16px, 2vw, 20px);
+  color: var(--bone);
+}
+
+.thanks-wa,
+.thanks-back {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 22px 8px 0;
+  min-height: 48px;
+  padding: 0 18px;
+  border: 1px solid #fff;
+  background: transparent;
+  color: #fff;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.thanks-back {
+  background: var(--bone);
+  color: var(--ink);
+  border-color: var(--bone);
+}
+
 .visit {
   position: relative;
   min-height: 100vh;
