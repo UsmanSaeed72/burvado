@@ -34,7 +34,7 @@
     </nav>
     <div class="nav-right">
       <p class="clock mono"><span id="clock">00:00:00</span> <span class="clock-zone">PKT</span></p>
-      <a class="order" href="tel:+923255048602">Order</a>
+      <button class="order" type="button" id="open-order">Order <span class="order-count" id="order-count" hidden>0</span></button>
       <button class="menu-btn" type="button" aria-expanded="false" aria-controls="sheet">Menu</button>
     </div>
   </header>
@@ -45,7 +45,7 @@
     <a href="#line">The line</a>
     <a href="#board">Menu</a>
     <a href="#visit">Visit</a>
-    <a href="tel:+923255048602">Order 0325-5048602</a>
+    <button class="sheet-order" type="button">Your order</button>
   </div>
 
   <p class="hud mono" aria-hidden="true"><span id="hud-index">01</span><span id="hud-name">Hero</span></p>
@@ -220,82 +220,95 @@
       <div class="board-head">
         <p class="kicker reveal">04 - The board</p>
         <h2 class="reveal">Order off the pass.</h2>
+        <p class="board-note reveal">Add one or more plates, then send the order for takeaway or delivery.</p>
       </div>
 
       <div class="group">
         <h3 class="group-label">Beef burgers</h3>
-        <a class="ticket" href="#line" data-img="../assets/images/scarlet_glaze.jpg">
+        <article class="ticket" data-img="../assets/images/scarlet_glaze.jpg">
           <span class="ticket-station">Beef</span>
           <span class="ticket-body"><strong>Scarlet Glaze</strong><em>Australian beef, Crimson Ember, caramelized onions, Mouth Melt bun.</em></span>
-          <span class="ticket-price">Single 799<span>Double 999</span></span>
-        </a>
-        <a class="ticket" href="#line" data-img="../assets/images/dolci_flame.jpg">
+          <span class="ticket-price">
+            <button type="button" class="add" data-id="scarlet" data-name="Scarlet Glaze" data-cut="Single" data-pkr="799">Single 799</button>
+            <button type="button" class="add" data-id="scarlet" data-name="Scarlet Glaze" data-cut="Double" data-pkr="999">Double 999</button>
+          </span>
+        </article>
+        <article class="ticket" data-img="../assets/images/dolci_flame.jpg">
           <span class="ticket-station">Beef</span>
           <span class="ticket-body"><strong>Dolci Flame</strong><em>Velour Blanc, jalapeño cheese, Burvado sauce, Mouth Melt bun.</em></span>
-          <span class="ticket-price">Single 790<span>Double 990</span></span>
-        </a>
-        <a class="ticket" href="#line" data-img="../assets/images/the_pass.jpg">
+          <span class="ticket-price">
+            <button type="button" class="add" data-id="dolci" data-name="Dolci Flame" data-cut="Single" data-pkr="790">Single 790</button>
+            <button type="button" class="add" data-id="dolci" data-name="Dolci Flame" data-cut="Double" data-pkr="990">Double 990</button>
+          </span>
+        </article>
+        <article class="ticket" data-img="../assets/images/the_pass.jpg">
           <span class="ticket-station">Beef</span>
           <span class="ticket-body"><strong>Prime Pasture</strong><em>Signature 2.0. Lettuce, tomato, sundry sauce, Mouth Melt bun.</em></span>
-          <span class="ticket-price">Single 840<span>Double 1049</span></span>
-        </a>
-        <a class="ticket" href="#line" data-img="../assets/images/shroom_melt.jpg">
+          <span class="ticket-price">
+            <button type="button" class="add" data-id="prime" data-name="Prime Pasture" data-cut="Single" data-pkr="840">Single 840</button>
+            <button type="button" class="add" data-id="prime" data-name="Prime Pasture" data-cut="Double" data-pkr="1049">Double 1049</button>
+          </span>
+        </article>
+        <article class="ticket" data-img="../assets/images/shroom_melt.jpg">
           <span class="ticket-station">Beef</span>
           <span class="ticket-body"><strong>Shroom Melt</strong><em>Signature 1.0. Mushrooms, cheese, Truffle Shroom sauce.</em></span>
-          <span class="ticket-price">Single 899<span>Double 1099</span></span>
-        </a>
+          <span class="ticket-price">
+            <button type="button" class="add" data-id="shroom" data-name="Shroom Melt" data-cut="Single" data-pkr="899">Single 899</button>
+            <button type="button" class="add" data-id="shroom" data-name="Shroom Melt" data-cut="Double" data-pkr="1099">Double 1099</button>
+          </span>
+        </article>
       </div>
 
       <div class="group">
         <h3 class="group-label">Street hits</h3>
-        <a class="ticket" href="tel:+923255048602" data-img="../assets/images/crew_table.jpg">
+        <article class="ticket" data-img="../assets/images/crew_table.jpg">
           <span class="ticket-station">Street</span>
           <span class="ticket-body"><strong>Crunch Vado</strong><em>Crispy chicken, lettuce, cheese, fume sauce, Mouth Melt bun.</em></span>
-          <span class="ticket-price">Plate 649</span>
-        </a>
-        <a class="ticket" href="tel:+923255048602">
+          <span class="ticket-price"><button type="button" class="add" data-id="crunch" data-name="Crunch Vado" data-cut="Plate" data-pkr="649">Plate 649</button></span>
+        </article>
+        <article class="ticket">
           <span class="ticket-station">Street</span>
           <span class="ticket-body"><strong>Noir Sando</strong><em>Signature 3.0. Milk bread, crispy chicken, sando sauce, black pepper, pickles.</em></span>
-          <span class="ticket-price">Plate 749</span>
-        </a>
-        <a class="ticket" href="tel:+923255048602" data-img="../assets/images/crew_kitchen.jpg">
+          <span class="ticket-price"><button type="button" class="add" data-id="noir" data-name="Noir Sando" data-cut="Plate" data-pkr="749">Plate 749</button></span>
+        </article>
+        <article class="ticket" data-img="../assets/images/crew_kitchen.jpg">
           <span class="ticket-station">Street</span>
           <span class="ticket-body"><strong>Dynamite Chicken</strong><em>Chicken bites in creamy, spicy dynamite sauce.</em></span>
-          <span class="ticket-price">Plate 549</span>
-        </a>
+          <span class="ticket-price"><button type="button" class="add" data-id="dynamite" data-name="Dynamite Chicken" data-cut="Plate" data-pkr="549">Plate 549</button></span>
+        </article>
       </div>
 
       <div class="group">
         <h3 class="group-label">Sides</h3>
-        <div class="ticket">
+        <article class="ticket">
           <span class="ticket-station">Side</span>
           <span class="ticket-body"><strong>Okra Fries</strong><em>Crisp okra, salted, ready for the bag.</em></span>
-          <span class="ticket-price">Hit 470</span>
-        </div>
-        <div class="ticket">
+          <span class="ticket-price"><button type="button" class="add" data-id="okra" data-name="Okra Fries" data-cut="Hit" data-pkr="470">Hit 470</button></span>
+        </article>
+        <article class="ticket">
           <span class="ticket-station">Side</span>
           <span class="ticket-body"><strong>Extra Beef 100g</strong><em>Another Australian beef patty for the stack.</em></span>
-          <span class="ticket-price">Patty 290</span>
-        </div>
+          <span class="ticket-price"><button type="button" class="add" data-id="extra" data-name="Extra Beef 100g" data-cut="Patty" data-pkr="290">Patty 290</button></span>
+        </article>
       </div>
 
       <div class="group">
         <h3 class="group-label">Sauces</h3>
-        <div class="ticket"><span class="ticket-station">Sauce</span><span class="ticket-body"><strong>Velour Blanc</strong><em>The white glaze. Cream, pepper, hush.</em></span><span class="ticket-price">Cup 149</span></div>
-        <div class="ticket"><span class="ticket-station">Sauce</span><span class="ticket-body"><strong>Crimson Ember</strong><em>Sweet-tangy fire. The Scarlet companion.</em></span><span class="ticket-price">Cup 149</span></div>
-        <div class="ticket"><span class="ticket-station">Sauce</span><span class="ticket-body"><strong>Sundried Elixir</strong><em>The sundry sauce. Prime Pasture’s quiet layer.</em></span><span class="ticket-price">Cup 149</span></div>
-        <div class="ticket"><span class="ticket-station">Sauce</span><span class="ticket-body"><strong>Fume Sauce</strong><em>Smoke for Crunch Vado and the street line.</em></span><span class="ticket-price">Cup 149</span></div>
-        <div class="ticket"><span class="ticket-station">Sauce</span><span class="ticket-body"><strong>Atomic Cream</strong><em>Heat in a cup. Keep it close.</em></span><span class="ticket-price">Cup 149</span></div>
-        <div class="ticket"><span class="ticket-station">Sauce</span><span class="ticket-body"><strong>Truffle Shroom</strong><em>The melt’s other half. Earth and cream.</em></span><span class="ticket-price">Cup 249</span></div>
+        <article class="ticket"><span class="ticket-station">Sauce</span><span class="ticket-body"><strong>Velour Blanc</strong><em>The white glaze. Cream, pepper, hush.</em></span><span class="ticket-price"><button type="button" class="add" data-id="velour" data-name="Velour Blanc" data-cut="Cup" data-pkr="149">Cup 149</button></span></article>
+        <article class="ticket"><span class="ticket-station">Sauce</span><span class="ticket-body"><strong>Crimson Ember</strong><em>Sweet-tangy fire. The Scarlet companion.</em></span><span class="ticket-price"><button type="button" class="add" data-id="crimson" data-name="Crimson Ember" data-cut="Cup" data-pkr="149">Cup 149</button></span></article>
+        <article class="ticket"><span class="ticket-station">Sauce</span><span class="ticket-body"><strong>Sundried Elixir</strong><em>The sundry sauce. Prime Pasture’s quiet layer.</em></span><span class="ticket-price"><button type="button" class="add" data-id="sundry" data-name="Sundried Elixir" data-cut="Cup" data-pkr="149">Cup 149</button></span></article>
+        <article class="ticket"><span class="ticket-station">Sauce</span><span class="ticket-body"><strong>Fume Sauce</strong><em>Smoke for Crunch Vado and the street line.</em></span><span class="ticket-price"><button type="button" class="add" data-id="fume" data-name="Fume Sauce" data-cut="Cup" data-pkr="149">Cup 149</button></span></article>
+        <article class="ticket"><span class="ticket-station">Sauce</span><span class="ticket-body"><strong>Atomic Cream</strong><em>Heat in a cup. Keep it close.</em></span><span class="ticket-price"><button type="button" class="add" data-id="atomic" data-name="Atomic Cream" data-cut="Cup" data-pkr="149">Cup 149</button></span></article>
+        <article class="ticket"><span class="ticket-station">Sauce</span><span class="ticket-body"><strong>Truffle Shroom</strong><em>The melt’s other half. Earth and cream.</em></span><span class="ticket-price"><button type="button" class="add" data-id="truffle" data-name="Truffle Shroom" data-cut="Cup" data-pkr="249">Cup 249</button></span></article>
       </div>
 
       <div class="group">
         <h3 class="group-label">Drinks</h3>
-        <div class="ticket"><span class="ticket-station">Drink</span><span class="ticket-body"><strong>Peach Drift</strong><em>Smooth peach iced tea, chilled with lemon and mint.</em></span><span class="ticket-price">Glass 549</span></div>
-        <div class="ticket"><span class="ticket-station">Drink</span><span class="ticket-body"><strong>Berry Bliss Tea</strong><em>Iced tea with raspberry, lemon, and mint.</em></span><span class="ticket-price">Glass 599</span></div>
-        <div class="ticket"><span class="ticket-station">Drink</span><span class="ticket-body"><strong>Coke 250ml</strong><em>Daily hub.</em></span><span class="ticket-price">Can 150</span></div>
-        <div class="ticket"><span class="ticket-station">Drink</span><span class="ticket-body"><strong>7UP 250ml</strong><em>Daily hub.</em></span><span class="ticket-price">Can 150</span></div>
-        <div class="ticket"><span class="ticket-station">Drink</span><span class="ticket-body"><strong>Mineral Water</strong><em>Still, cold.</em></span><span class="ticket-price">Bottle 150</span></div>
+        <article class="ticket"><span class="ticket-station">Drink</span><span class="ticket-body"><strong>Peach Drift</strong><em>Smooth peach iced tea, chilled with lemon and mint.</em></span><span class="ticket-price"><button type="button" class="add" data-id="peach" data-name="Peach Drift" data-cut="Glass" data-pkr="549">Glass 549</button></span></article>
+        <article class="ticket"><span class="ticket-station">Drink</span><span class="ticket-body"><strong>Berry Bliss Tea</strong><em>Iced tea with raspberry, lemon, and mint.</em></span><span class="ticket-price"><button type="button" class="add" data-id="berry" data-name="Berry Bliss Tea" data-cut="Glass" data-pkr="599">Glass 599</button></span></article>
+        <article class="ticket"><span class="ticket-station">Drink</span><span class="ticket-body"><strong>Coke 250ml</strong><em>Daily hub.</em></span><span class="ticket-price"><button type="button" class="add" data-id="coke" data-name="Coke 250ml" data-cut="Can" data-pkr="150">Can 150</button></span></article>
+        <article class="ticket"><span class="ticket-station">Drink</span><span class="ticket-body"><strong>7UP 250ml</strong><em>Daily hub.</em></span><span class="ticket-price"><button type="button" class="add" data-id="seven" data-name="7UP 250ml" data-cut="Can" data-pkr="150">Can 150</button></span></article>
+        <article class="ticket"><span class="ticket-station">Drink</span><span class="ticket-body"><strong>Mineral Water</strong><em>Still, cold.</em></span><span class="ticket-price"><button type="button" class="add" data-id="water" data-name="Mineral Water" data-cut="Bottle" data-pkr="150">Bottle 150</button></span></article>
       </div>
     </section>
 
@@ -328,6 +341,31 @@
       <a href="tel:+923255048602">0325-5048602</a>
     </div>
   </footer>
+
+  <div class="bag" id="bag" hidden>
+    <div class="bag-panel" role="dialog" aria-modal="true" aria-labelledby="bag-title">
+      <div class="bag-head">
+        <h2 id="bag-title">Your order</h2>
+        <button class="bag-close" type="button">Close</button>
+      </div>
+      <p class="bag-empty" id="bag-empty">Nothing on the pass yet. Add from the board.</p>
+      <ul class="bag-lines" id="bag-lines"></ul>
+      <form class="bag-form" id="bag-form" hidden>
+        <p class="bag-label">How should we send it?</p>
+        <div class="how">
+          <button class="how-btn is-on" type="button" data-how="Takeaway">Takeaway</button>
+          <button class="how-btn" type="button" data-how="Delivery">Delivery</button>
+        </div>
+        <label>Name<input name="name" autocomplete="name" required></label>
+        <label class="address-field" id="address-field" hidden>Delivery address<input name="address" autocomplete="street-address"></label>
+        <label>Notes<textarea name="note" rows="3"></textarea></label>
+        <p class="bag-total" id="bag-total"></p>
+        <p class="bag-hint">Place order opens WhatsApp to 0325-5048602 so the kitchen receives it.</p>
+        <p class="bag-error" id="bag-error" hidden></p>
+        <button class="place" type="submit">Place order</button>
+      </form>
+    </div>
+  </div>
 
   <div class="preview" aria-hidden="true"><img alt=""></div>
 

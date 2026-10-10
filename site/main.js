@@ -1,5 +1,6 @@
 (function () {
   const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let lenis = null;
 
   if (!window.gsap) {
     const intro = document.getElementById("intro");
@@ -9,6 +10,7 @@
       el.style.opacity = "1";
       el.style.transform = "none";
     });
+    setupOrder();
     return;
   }
 
@@ -41,7 +43,6 @@
   tickClock();
   setInterval(tickClock, 1000);
 
-  let lenis = null;
   if (!reduced && window.Lenis) {
     lenis = new Lenis({
       duration: 1.2,
@@ -456,6 +457,198 @@
         onComplete: finishIntro,
       });
     });
+  }
+
+  setupOrder();
+
+  function setupOrder() {
+    const bag = document.getElementById("bag");
+    const linesEl = document.getElementById("bag-lines");
+    const emptyEl = document.getElementById("bag-empty");
+    const form = document.getElementById("bag-form");
+    const totalEl = document.getElementById("bag-total");
+    const errorEl = document.getElementById("bag-error");
+    const countEl = document.getElementById("order-count");
+    const addressField = document.getElementById("address-field");
+    if (!bag || !linesEl || !form) return;
+
+    const phone = "923255048602";
+    let lines = [];
+    let how = "Takeaway";
+
+    try {
+      const saved = JSON.parse(sessionStorage.getItem("burvado-order") || "[]");
+      if (Array.isArray(saved)) lines = saved;
+    } catch (err) {
+      lines = [];
+    }
+
+    function save() {
+      sessionStorage.setItem("burvado-order", JSON.stringify(lines));
+    }
+
+    function count() {
+      return lines.reduce(function (sum, line) { return sum + line.qty; }, 0);
+    }
+
+    function total() {
+      return lines.reduce(function (sum, line) { return sum + line.pkr * line.qty; }, 0);
+    }
+
+    function lock(on) {
+      document.body.classList.toggle("bag-open", on);
+      if (!lenis) return;
+      if (on) lenis.stop();
+      else if (reduced || introDone) lenis.start();
+    }
+
+    function openBag() {
+      bag.hidden = false;
+      lock(true);
+      const close = bag.querySelector(".bag-close");
+      if (close) close.focus();
+    }
+
+    function closeBag() {
+      bag.hidden = true;
+      lock(false);
+    }
+
+    function render() {
+      const n = count();
+      if (countEl) {
+        countEl.hidden = n === 0;
+        countEl.textContent = String(n);
+      }
+      linesEl.innerHTML = "";
+      lines.forEach(function (line, index) {
+        const li = document.createElement("li");
+        li.innerHTML =
+          "<div><strong></strong><em></em></div>" +
+          "<div class=\"qty\"><button type=\"button\" data-dec>-</button><span></span><button type=\"button\" data-inc>+</button></div>" +
+          "<span class=\"line-total\"></span>";
+        li.querySelector("strong").textContent = line.name;
+        li.querySelector("em").textContent = line.cut + " · " + line.pkr + " RS";
+        li.querySelector(".qty span").textContent = String(line.qty);
+        li.querySelector(".line-total").textContent = (line.pkr * line.qty) + " RS";
+        li.querySelector("[data-dec]").addEventListener("click", function () {
+          if (line.qty <= 1) lines.splice(index, 1);
+          else line.qty -= 1;
+          save();
+          render();
+        });
+        li.querySelector("[data-inc]").addEventListener("click", function () {
+          line.qty += 1;
+          save();
+          render();
+        });
+        linesEl.appendChild(li);
+      });
+      emptyEl.hidden = lines.length > 0;
+      form.hidden = lines.length === 0;
+      totalEl.textContent = total() + " RS";
+    }
+
+    document.querySelectorAll(".add").forEach(function (button) {
+      button.addEventListener("click", function () {
+        const item = {
+          id: button.dataset.id,
+          name: button.dataset.name,
+          cut: button.dataset.cut,
+          pkr: Number(button.dataset.pkr),
+          qty: 1,
+        };
+        const existing = lines.find(function (line) {
+          return line.id === item.id && line.cut === item.cut;
+        });
+        if (existing) existing.qty += 1;
+        else lines.push(item);
+        save();
+        render();
+        openBag();
+      });
+    });
+
+    function showError(message) {
+      errorEl.hidden = !message;
+      errorEl.textContent = message || "";
+    }
+
+    bag.querySelectorAll(".how-btn").forEach(function (button) {
+      button.addEventListener("click", function () {
+        how = button.dataset.how;
+        bag.querySelectorAll(".how-btn").forEach(function (el) {
+          el.classList.toggle("is-on", el === button);
+        });
+        const delivery = how === "Delivery";
+        addressField.hidden = !delivery;
+        addressField.querySelector("input").required = delivery;
+        showError("");
+      });
+    });
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const data = new FormData(form);
+      const name = String(data.get("name") || "").trim();
+      const address = String(data.get("address") || "").trim();
+      const note = String(data.get("note") || "").trim();
+      if (!name) {
+        showError("Add a name for the order.");
+        return;
+      }
+      if (how === "Delivery" && !address) {
+        showError("Add a delivery address.");
+        return;
+      }
+      if (!lines.length) {
+        showError("Add something from the board.");
+        return;
+      }
+      const message = [
+        "BURVADO ORDER",
+        "Name: " + name,
+        "How: " + how,
+        how === "Delivery" ? "Address: " + address : "Pickup: Park View City, Lahore",
+        note ? "Notes: " + note : "",
+        "",
+      ].concat(lines.map(function (line) {
+        return line.qty + " x " + line.name + " (" + line.cut + ") — " + (line.pkr * line.qty) + " RS";
+      }), ["", "Total: " + total() + " RS"]).filter(Boolean).join("\n");
+      showError("");
+      window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(message), "_blank", "noopener");
+    });
+
+    document.getElementById("open-order").addEventListener("click", function () {
+      if (!lines.length) {
+        scrollToHash("#board");
+        return;
+      }
+      openBag();
+    });
+    document.querySelector(".sheet-order").addEventListener("click", function () {
+      const sheet = document.getElementById("sheet");
+      const menuBtn = document.querySelector(".menu-btn");
+      if (sheet && !sheet.hidden && window.gsap) closeSheet();
+      else if (sheet) {
+        sheet.hidden = true;
+        if (menuBtn) menuBtn.setAttribute("aria-expanded", "false");
+      }
+      if (!lines.length) {
+        scrollToHash("#board");
+        return;
+      }
+      openBag();
+    });
+    bag.querySelector(".bag-close").addEventListener("click", closeBag);
+    bag.addEventListener("click", function (event) {
+      if (event.target === bag) closeBag();
+    });
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && !bag.hidden) closeBag();
+    });
+
+    render();
   }
 
   const waitFonts = document.fonts ? document.fonts.ready : Promise.resolve();

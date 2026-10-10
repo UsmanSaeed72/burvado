@@ -299,6 +299,12 @@ h1, h2, h3, p {
 .order {
   border: 1px solid #fff;
   padding: 8px 14px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  cursor: pointer;
   transition: background 0.3s ease, color 0.3s ease;
 }
 
@@ -327,12 +333,17 @@ h1, h2, h3, p {
   display: none;
 }
 
-.sheet a {
+.sheet a,
+.sheet-order {
   font-family: Anton, sans-serif;
   font-size: clamp(42px, 12vw, 84px);
   line-height: 0.95;
   letter-spacing: 0.02em;
   text-transform: uppercase;
+  background: none;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
 }
 
 .sheet-close {
@@ -853,6 +864,13 @@ h1, h2, h3, p {
   color: #6f6a62;
 }
 
+.board-note {
+  max-width: 36rem;
+  margin: 12px 0 0;
+  color: #5e594f;
+  font-size: 16px;
+}
+
 .group {
   margin-top: 48px;
 }
@@ -931,17 +949,236 @@ h1, h2, h3, p {
 }
 
 .ticket-price {
-  text-align: right;
-  font-size: 13px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+}
+
+.add {
+  border: 1px solid rgba(20, 20, 20, 0.22);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
+  padding: 8px 10px;
+  cursor: pointer;
   white-space: nowrap;
 }
 
-.ticket-price span {
+.add:hover,
+.add:focus-visible {
+  background: var(--ink);
+  color: var(--bone);
+}
+
+.bag {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+  display: flex;
+  justify-content: flex-end;
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.bag[hidden] {
+  display: none;
+}
+
+.bag-panel {
+  margin-left: auto;
+  width: min(440px, 100%);
+  height: 100%;
+  background: #0c0c0c;
+  color: var(--bone);
+  display: flex;
+  flex-direction: column;
+  padding: 28px 24px 32px;
+  overflow: auto;
+}
+
+.bag-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.bag-head h2 {
+  font-size: 42px;
+}
+
+.bag-close,
+.how-btn,
+.qty button,
+.place {
+  font: inherit;
+  cursor: pointer;
+}
+
+.bag-close {
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 600;
+  background: none;
+  color: inherit;
+}
+
+.bag-empty {
+  margin: 28px 0 0;
+  color: var(--mute);
+}
+
+.bag-lines {
+  list-style: none;
+  margin: 22px 0 0;
+  padding: 0;
+}
+
+.bag-lines li {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 12px;
+  align-items: center;
+  padding: 14px 0;
+  border-top: 1px solid var(--line);
+}
+
+.bag-lines strong {
   display: block;
-  margin-top: 4px;
+  font-family: Anton, sans-serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.bag-lines em {
+  font-style: normal;
+  color: var(--mute);
+  font-size: 13px;
+}
+
+.qty {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.qty button {
+  width: 28px;
+  height: 28px;
+  border: 1px solid var(--line);
+  background: transparent;
+  color: inherit;
+}
+
+.line-total {
+  min-width: 64px;
+  text-align: right;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.bag-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.bag-form[hidden],
+.address-field[hidden],
+.bag-error[hidden] {
+  display: none;
+}
+
+.bag-label,
+.bag-form label {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+.bag-hint {
+  font-size: 14px;
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  line-height: 1.45;
+  color: var(--mute);
+}
+
+.how {
+  display: flex;
+  gap: 8px;
+}
+
+.how-btn {
+  border: 1px solid var(--line);
+  background: transparent;
+  color: inherit;
+  padding: 12px 16px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.how-btn.is-on {
+  background: var(--bone);
+  color: var(--ink);
+}
+
+.bag-form input,
+.bag-form textarea {
+  display: block;
+  width: 100%;
+  margin-top: 8px;
+  border: 0;
+  background: #161616;
+  color: var(--bone);
+  font: inherit;
+  font-size: 16px;
+  letter-spacing: 0;
+  text-transform: none;
+  font-weight: 400;
+  padding: 12px;
+}
+
+.bag-total {
+  font-family: Anton, sans-serif;
+  font-size: 36px;
+  letter-spacing: 0.02em;
+}
+
+.bag-error {
+  color: #ffb4a8;
+  letter-spacing: 0.04em;
+  text-transform: none;
+  font-weight: 500;
+}
+
+.place {
+  height: 52px;
+  border: 0;
+  background: var(--bone);
+  color: var(--ink);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+body.bag-open {
+  overflow: hidden;
 }
 
 .visit {
