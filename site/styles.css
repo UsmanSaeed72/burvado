@@ -1022,12 +1022,17 @@ h1, h2, h3, p {
   font-size: clamp(32px, 8vw, 42px);
 }
 
-.bag-scroll {
-  flex: 1;
+.bag-items {
+  flex: 0 1 auto;
   min-height: 0;
+  max-height: min(280px, 42%);
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-  padding: 8px 20px 16px;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(231, 225, 214, 0.45) transparent;
+  padding: 4px 20px 0;
 }
 
 .bag-foot {
@@ -1059,13 +1064,13 @@ h1, h2, h3, p {
 }
 
 .bag-empty {
-  margin: 28px 0 0;
+  margin: 18px 0 8px;
   color: var(--mute);
 }
 
 .bag-lines {
   list-style: none;
-  margin: 22px 0 0;
+  margin: 0;
   padding: 0;
 }
 
@@ -1076,6 +1081,7 @@ h1, h2, h3, p {
   align-items: center;
   padding: 14px 0;
   border-top: 1px solid var(--line);
+  color: var(--bone);
 }
 
 .line-name {
@@ -1121,10 +1127,20 @@ h1, h2, h3, p {
 }
 
 .bag-form {
+  flex: 1 1 auto;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   gap: 12px;
-  margin-top: 22px;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  touch-action: pan-y;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(231, 225, 214, 0.45) transparent;
+  margin-top: 8px;
+  padding: 8px 20px 12px;
+  border-top: 1px solid var(--line);
 }
 
 .bag-form[hidden],

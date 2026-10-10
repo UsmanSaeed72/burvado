@@ -615,13 +615,22 @@
       form.hidden = lines.length === 0;
       if (foot) foot.hidden = lines.length === 0;
       totalEl.textContent = "Rs " + total();
-      if (motion() && pulseIndex != null) {
-        gsap.fromTo(totalEl, { autoAlpha: 0.35 }, { autoAlpha: 1, duration: 0.35, ease: "power2.out" });
+      const row = pulseIndex == null ? null : linesEl.children[pulseIndex];
+      const itemsWrap = document.getElementById("bag-items");
+      if (row && itemsWrap) {
+        const top = row.offsetTop;
+        const bottom = top + row.offsetHeight;
+        if (top < itemsWrap.scrollTop) itemsWrap.scrollTop = top;
+        else if (bottom > itemsWrap.scrollTop + itemsWrap.clientHeight) {
+          itemsWrap.scrollTop = bottom - itemsWrap.clientHeight;
+        }
       }
-      if (pulseIndex == null || !motion()) return;
-      const row = linesEl.children[pulseIndex];
+      if (!motion()) return;
+      if (pulseIndex != null) {
+        gsap.fromTo(totalEl, { autoAlpha: 0.55 }, { autoAlpha: 1, duration: 0.35, ease: "power2.out", clearProps: "opacity,visibility" });
+      }
       if (!row) return;
-      gsap.fromTo(row, { y: 14, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.45, ease: "power3.out" });
+      gsap.fromTo(row, { y: 8 }, { y: 0, duration: 0.35, ease: "power3.out", clearProps: "transform" });
     }
 
     document.querySelectorAll(".add").forEach(function (button) {

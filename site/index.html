@@ -349,21 +349,21 @@
           <h2 id="bag-title">Your order</h2>
           <button class="bag-close" type="button">Close</button>
         </div>
-        <div class="bag-scroll">
+        <div class="bag-items" id="bag-items" data-lenis-prevent>
           <p class="bag-empty" id="bag-empty">Nothing on the pass yet. Add from the board.</p>
           <ul class="bag-lines" id="bag-lines"></ul>
-          <form class="bag-form" id="bag-form" hidden>
-            <p class="bag-label">How should we send it?</p>
-            <div class="how">
-              <button class="how-btn is-on" type="button" data-how="Takeaway">Takeaway</button>
-              <button class="how-btn" type="button" data-how="Delivery">Delivery</button>
-            </div>
-            <label>Name<input name="name" autocomplete="name" required></label>
-            <label>Phone<input name="phone" type="tel" inputmode="tel" autocomplete="tel" required></label>
-            <label class="address-field" id="address-field">Address<input name="address" autocomplete="street-address" required></label>
-            <label>Notes<textarea name="note" rows="2"></textarea></label>
-          </form>
         </div>
+        <form class="bag-form" id="bag-form" hidden data-lenis-prevent>
+          <p class="bag-label">How should we send it?</p>
+          <div class="how">
+            <button class="how-btn is-on" type="button" data-how="Takeaway">Takeaway</button>
+            <button class="how-btn" type="button" data-how="Delivery">Delivery</button>
+          </div>
+          <label>Name<input name="name" autocomplete="name" required></label>
+          <label>Phone<input name="phone" type="tel" inputmode="tel" autocomplete="tel" required></label>
+          <label class="address-field" id="address-field">Address<input name="address" autocomplete="street-address" required></label>
+          <label>Notes<textarea name="note" rows="2"></textarea></label>
+        </form>
         <div class="bag-foot" id="bag-foot" hidden>
           <p class="bag-total" id="bag-total"></p>
           <p class="bag-error" id="bag-error" hidden></p>
