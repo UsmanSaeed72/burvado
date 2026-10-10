@@ -469,7 +469,6 @@
     const totalEl = document.getElementById("bag-total");
     const errorEl = document.getElementById("bag-error");
     const countEl = document.getElementById("order-count");
-    const addressField = document.getElementById("address-field");
     if (!bag || !linesEl || !form) return;
 
     const phone = "923255048602";
@@ -665,12 +664,6 @@
         bag.querySelectorAll(".how-btn").forEach(function (el) {
           el.classList.toggle("is-on", el === button);
         });
-        const delivery = how === "Delivery";
-        addressField.hidden = !delivery;
-        addressField.querySelector("input").required = delivery;
-        if (delivery && motion()) {
-          gsap.fromTo(addressField, { y: -10, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.4, ease: "power3.out" });
-        }
         showError("");
       });
     });
@@ -690,8 +683,8 @@
         showError("Add a phone number.");
         return;
       }
-      if (how === "Delivery" && !address) {
-        showError("Add a delivery address.");
+      if (!address) {
+        showError("Add an address.");
         return;
       }
       if (!lines.length) {
@@ -702,8 +695,8 @@
         "*Type:* " + how,
         "*Name:* - " + name,
         "*Phone:* - " + customerPhone,
+        "*Address:* - " + address,
       ];
-      if (how === "Delivery") messageLines.push("*Address:* - " + address);
       if (note) messageLines.push("*Notes:* - " + note);
       messageLines.push("", "*Order:*");
       lines.forEach(function (line) {
@@ -724,8 +717,6 @@
       bag.querySelectorAll(".how-btn").forEach(function (el) {
         el.classList.toggle("is-on", el.dataset.how === "Takeaway");
       });
-      addressField.hidden = true;
-      addressField.querySelector("input").required = false;
       render();
       showThanks(who + " · " + sentHow + " · Rs " + due, waUrl);
     });
