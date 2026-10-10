@@ -313,6 +313,10 @@ h1, h2, h3, p {
   color: var(--bg);
 }
 
+.order-count {
+  margin-left: 8px;
+}
+
 .menu-btn {
   display: none;
 }
@@ -982,6 +986,8 @@ h1, h2, h3, p {
   display: flex;
   justify-content: flex-end;
   overflow: hidden;
+  height: 100dvh;
+  max-height: 100dvh;
   background: rgba(0, 0, 0, 0.55);
 }
 
@@ -1023,9 +1029,9 @@ h1, h2, h3, p {
 }
 
 .bag-items {
-  flex: 0 1 auto;
+  flex: 0 0 auto;
   min-height: 0;
-  max-height: min(280px, 42%);
+  max-height: min(280px, 38vh);
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   overscroll-behavior: contain;
@@ -1091,11 +1097,12 @@ h1, h2, h3, p {
 .bag-lines strong {
   display: block;
   font-family: Anton, sans-serif;
-  font-size: clamp(18px, 5vw, 22px);
+  font-size: clamp(17px, 4.6vw, 22px);
   font-weight: 400;
   letter-spacing: 0.03em;
+  line-height: 1;
   text-transform: uppercase;
-  overflow-wrap: anywhere;
+  overflow-wrap: normal;
 }
 
 .bag-lines em {
@@ -1233,22 +1240,38 @@ h1, h2, h3, p {
 }
 
 @media (max-width: 520px) {
-  .bag-lines li {
-    grid-template-columns: 1fr auto;
+  .bag-head,
+  .bag-items,
+  .bag-form,
+  .bag-foot {
+    padding-left: 16px;
+    padding-right: 16px;
   }
 
-  .line-total {
-    grid-column: 2;
+  .bag-lines li {
+    gap: 6px 8px;
+    align-items: center;
+  }
+
+  .bag-lines strong {
+    font-size: 17px;
   }
 
   .qty {
-    grid-column: 1;
-    justify-self: start;
+    gap: 6px;
   }
 
   .qty button {
     width: 36px;
     height: 36px;
+  }
+
+  .line-total {
+    min-width: 52px;
+  }
+
+  .how-btn {
+    min-height: 44px;
   }
 }
 
@@ -1494,6 +1517,14 @@ body.bag-open {
 
   .menu-btn {
     display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .order {
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
   }
 
   .hero {
@@ -1591,6 +1622,12 @@ body.bag-open {
 
   .ticket {
     grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+
+  .add {
+    min-height: 44px;
+    padding: 10px 12px;
   }
 
   .ticket-station {
