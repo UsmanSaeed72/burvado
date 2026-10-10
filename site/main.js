@@ -528,9 +528,9 @@
           "<div class=\"qty\"><button type=\"button\" data-dec>-</button><span></span><button type=\"button\" data-inc>+</button></div>" +
           "<span class=\"line-total\"></span>";
         li.querySelector("strong").textContent = line.name;
-        li.querySelector("em").textContent = line.cut + " · " + line.pkr + " RS";
+        li.querySelector("em").textContent = line.cut + " · Rs " + line.pkr;
         li.querySelector(".qty span").textContent = String(line.qty);
-        li.querySelector(".line-total").textContent = (line.pkr * line.qty) + " RS";
+        li.querySelector(".line-total").textContent = "Rs " + (line.pkr * line.qty);
         li.querySelector("[data-dec]").addEventListener("click", function () {
           if (line.qty <= 1) lines.splice(index, 1);
           else line.qty -= 1;
@@ -546,7 +546,7 @@
       });
       emptyEl.hidden = lines.length > 0;
       form.hidden = lines.length === 0;
-      totalEl.textContent = total() + " RS";
+      totalEl.textContent = "Rs " + total();
     }
 
     document.querySelectorAll(".add").forEach(function (button) {
@@ -591,10 +591,15 @@
       event.preventDefault();
       const data = new FormData(form);
       const name = String(data.get("name") || "").trim();
+      const customerPhone = String(data.get("phone") || "").trim();
       const address = String(data.get("address") || "").trim();
       const note = String(data.get("note") || "").trim();
       if (!name) {
         showError("Add a name for the order.");
+        return;
+      }
+      if (!customerPhone) {
+        showError("Add a phone number.");
         return;
       }
       if (how === "Delivery" && !address) {
@@ -605,16 +610,19 @@
         showError("Add something from the board.");
         return;
       }
-      const message = [
-        "BURVADO ORDER",
-        "Name: " + name,
-        "How: " + how,
-        how === "Delivery" ? "Address: " + address : "Pickup: Park View City, Lahore",
-        note ? "Notes: " + note : "",
-        "",
-      ].concat(lines.map(function (line) {
-        return line.qty + " x " + line.name + " (" + line.cut + ") — " + (line.pkr * line.qty) + " RS";
-      }), ["", "Total: " + total() + " RS"]).filter(Boolean).join("\n");
+      const messageLines = [
+        "*Type:* " + how,
+        "*Name:* - " + name,
+        "*Phone:* - " + customerPhone,
+      ];
+      if (how === "Delivery") messageLines.push("*Address:* - " + address);
+      if (note) messageLines.push("*Notes:* - " + note);
+      messageLines.push("", "*Order:*");
+      lines.forEach(function (line) {
+        messageLines.push("• " + line.name + " (" + line.cut + ") x " + line.qty + " - Rs " + (line.pkr * line.qty));
+      });
+      messageLines.push("", "*Subtotal: Rs " + total() + "*", "(Thank you For Ordering Burvado)");
+      const message = messageLines.join("\n");
       showError("");
       window.open("https://wa.me/" + phone + "?text=" + encodeURIComponent(message), "_blank", "noopener");
     });
