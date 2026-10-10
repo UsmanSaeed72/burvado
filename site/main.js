@@ -742,18 +742,16 @@
         el.classList.toggle("is-on", el.dataset.how === "Takeaway");
       });
       render();
-      showThanks(who + " · " + sentHow + " · Rs " + due, waUrl);
+      showThanks(who + " · " + sentHow + " · Rs " + due);
     });
 
-    function showThanks(detail, waUrl) {
+    function showThanks(detail) {
       const thanks = document.getElementById("thanks");
       const detailEl = document.getElementById("thanks-detail");
-      const wa = document.getElementById("thanks-wa");
       if (!thanks) return;
       bag.hidden = true;
       if (window.gsap) gsap.killTweensOf([bag, ".bag-shift"]);
       detailEl.textContent = detail;
-      wa.href = waUrl;
       thanks.hidden = false;
       lock(true);
       if (!motion()) return;
@@ -763,7 +761,7 @@
         .fromTo(".thanks-kicker", { y: 14, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.5, ease: "power3.out" }, 0.12)
         .fromTo(".thanks-word i", { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.85, stagger: 0.055, ease: "power4.out" }, 0.2)
         .fromTo(".thanks-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power3.inOut" }, 0.55)
-        .fromTo(".thanks-detail, .thanks-wa, .thanks-back, .thanks-ig, .thanks-review", { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.55, stagger: 0.08, ease: "power3.out" }, 0.78);
+        .fromTo(".thanks-detail, .thanks-back, .thanks-ig, .thanks-review", { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.55, stagger: 0.08, ease: "power3.out" }, 0.78);
     }
 
     function hideThanks() {
