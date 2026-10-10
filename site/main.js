@@ -466,6 +466,7 @@
     const linesEl = document.getElementById("bag-lines");
     const emptyEl = document.getElementById("bag-empty");
     const form = document.getElementById("bag-form");
+    const foot = document.getElementById("bag-foot");
     const totalEl = document.getElementById("bag-total");
     const errorEl = document.getElementById("bag-error");
     const countEl = document.getElementById("order-count");
@@ -514,16 +515,15 @@
       const close = bag.querySelector(".bag-close");
       if (close) close.focus();
       if (!motion() || !firstOpen) return;
-      gsap.killTweensOf([bag, ".bag-panel"]);
+      gsap.killTweensOf([bag, ".bag-shift"]);
       gsap.fromTo(bag, { autoAlpha: 0 }, { autoAlpha: 1, duration: 0.35, ease: "power2.out" });
-      gsap.fromTo(".bag-panel", { x: 72 }, { x: 0, duration: 0.75, ease: "power3.out" });
-      gsap.from(".bag-lines li, .bag-form > *", {
-        y: 16,
-        autoAlpha: 0,
-        stagger: 0.045,
-        duration: 0.5,
+      gsap.fromTo(".bag-shift", { x: 72 }, {
+        x: 0,
+        duration: 0.75,
         ease: "power3.out",
-        delay: 0.12,
+        onComplete: function () {
+          gsap.set(".bag-shift", { clearProps: "transform" });
+        },
       });
     }
 
@@ -535,8 +535,8 @@
         return;
       }
       bagBusy = true;
-      gsap.killTweensOf([bag, ".bag-panel"]);
-      gsap.to(".bag-panel", { x: 64, duration: 0.4, ease: "power2.in" });
+      gsap.killTweensOf([bag, ".bag-shift"]);
+      gsap.to(".bag-shift", { x: 64, duration: 0.4, ease: "power2.in" });
       gsap.to(bag, {
         autoAlpha: 0,
         duration: 0.35,
@@ -544,7 +544,7 @@
         onComplete: function () {
           bag.hidden = true;
           gsap.set(bag, { autoAlpha: 1 });
-          gsap.set(".bag-panel", { x: 0 });
+          gsap.set(".bag-shift", { clearProps: "transform" });
           bagBusy = false;
           lock(false);
         },
@@ -591,7 +591,7 @@
       lines.forEach(function (line, index) {
         const li = document.createElement("li");
         li.innerHTML =
-          "<div><strong></strong><em></em></div>" +
+          "<div class=\"line-name\"><strong></strong><em></em></div>" +
           "<div class=\"qty\"><button type=\"button\" data-dec>-</button><span></span><button type=\"button\" data-inc>+</button></div>" +
           "<span class=\"line-total\"></span>";
         li.querySelector("strong").textContent = line.name;
@@ -613,6 +613,7 @@
       });
       emptyEl.hidden = lines.length > 0;
       form.hidden = lines.length === 0;
+      if (foot) foot.hidden = lines.length === 0;
       totalEl.textContent = "Rs " + total();
       if (motion() && pulseIndex != null) {
         gsap.fromTo(totalEl, { autoAlpha: 0.35 }, { autoAlpha: 1, duration: 0.35, ease: "power2.out" });
@@ -727,7 +728,7 @@
       const wa = document.getElementById("thanks-wa");
       if (!thanks) return;
       bag.hidden = true;
-      if (window.gsap) gsap.killTweensOf([bag, ".bag-panel"]);
+      if (window.gsap) gsap.killTweensOf([bag, ".bag-shift"]);
       detailEl.textContent = detail;
       wa.href = waUrl;
       thanks.hidden = false;

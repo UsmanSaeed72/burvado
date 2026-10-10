@@ -981,6 +981,7 @@ h1, h2, h3, p {
   z-index: 80;
   display: flex;
   justify-content: flex-end;
+  overflow: hidden;
   background: rgba(0, 0, 0, 0.55);
 }
 
@@ -988,16 +989,24 @@ h1, h2, h3, p {
   display: none;
 }
 
-.bag-panel {
-  margin-left: auto;
+.bag-shift {
   width: min(440px, 100%);
+  max-width: 100%;
+  min-width: 0;
   height: 100%;
+  margin-left: auto;
+}
+
+.bag-panel {
+  width: 100%;
+  height: 100%;
+  max-height: 100%;
+  min-width: 0;
   background: #0c0c0c;
   color: var(--bone);
   display: flex;
   flex-direction: column;
-  padding: 28px 24px 32px;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .bag-head {
@@ -1005,10 +1014,31 @@ h1, h2, h3, p {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
+  flex: none;
+  padding: 22px 20px 8px;
 }
 
 .bag-head h2 {
-  font-size: 42px;
+  font-size: clamp(32px, 8vw, 42px);
+}
+
+.bag-scroll {
+  flex: 1;
+  min-height: 0;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+  padding: 8px 20px 16px;
+}
+
+.bag-foot {
+  flex: none;
+  padding: 12px 20px calc(14px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--line);
+  background: #0c0c0c;
+}
+
+.bag-foot[hidden] {
+  display: none;
 }
 
 .bag-close,
@@ -1041,20 +1071,25 @@ h1, h2, h3, p {
 
 .bag-lines li {
   display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: 12px;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 10px 12px;
   align-items: center;
   padding: 14px 0;
   border-top: 1px solid var(--line);
 }
 
+.line-name {
+  min-width: 0;
+}
+
 .bag-lines strong {
   display: block;
   font-family: Anton, sans-serif;
-  font-size: 22px;
+  font-size: clamp(18px, 5vw, 22px);
   font-weight: 400;
   letter-spacing: 0.03em;
   text-transform: uppercase;
+  overflow-wrap: anywhere;
 }
 
 .bag-lines em {
@@ -1118,10 +1153,12 @@ h1, h2, h3, p {
 
 .how {
   display: flex;
+  flex-wrap: wrap;
   gap: 8px;
 }
 
 .how-btn {
+  flex: 1 1 140px;
   border: 1px solid var(--line);
   background: transparent;
   color: inherit;
@@ -1167,7 +1204,9 @@ h1, h2, h3, p {
 }
 
 .place {
+  width: 100%;
   height: 52px;
+  margin-top: 10px;
   border: 0;
   background: var(--bone);
   color: var(--ink);
@@ -1175,6 +1214,26 @@ h1, h2, h3, p {
   text-transform: uppercase;
   font-size: 13px;
   font-weight: 600;
+}
+
+@media (max-width: 520px) {
+  .bag-lines li {
+    grid-template-columns: 1fr auto;
+  }
+
+  .line-total {
+    grid-column: 2;
+  }
+
+  .qty {
+    grid-column: 1;
+    justify-self: start;
+  }
+
+  .qty button {
+    width: 36px;
+    height: 36px;
+  }
 }
 
 body.bag-open {
