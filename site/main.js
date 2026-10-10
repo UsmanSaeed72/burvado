@@ -763,7 +763,7 @@
         .fromTo(".thanks-kicker", { y: 14, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.5, ease: "power3.out" }, 0.12)
         .fromTo(".thanks-word i", { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.85, stagger: 0.055, ease: "power4.out" }, 0.2)
         .fromTo(".thanks-rule", { scaleX: 0 }, { scaleX: 1, duration: 0.7, ease: "power3.inOut" }, 0.55)
-        .fromTo(".thanks-detail, .thanks-wa, .thanks-back", { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.55, stagger: 0.08, ease: "power3.out" }, 0.78);
+        .fromTo(".thanks-detail, .thanks-wa, .thanks-back, .thanks-ig, .thanks-review", { y: 18, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.55, stagger: 0.08, ease: "power3.out" }, 0.78);
     }
 
     function hideThanks() {
