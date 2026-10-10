@@ -24,7 +24,6 @@
     "../assets/images/dolci_flame.jpg",
     "../assets/images/prime_pasture.jpg",
     "../assets/images/shroom_melt.jpg",
-    "../assets/images/noir_sando.jpg",
     "../assets/images/dynamite_chicken.jpg",
     "../assets/images/the_bite.jpg",
     "../assets/images/the_drive.jpg",
@@ -484,7 +483,9 @@
 
     try {
       const saved = JSON.parse(sessionStorage.getItem("burvado-order") || "[]");
-      if (Array.isArray(saved)) lines = saved;
+      if (Array.isArray(saved)) {
+        lines = saved.filter(function (line) { return line.id !== "noir"; });
+      }
     } catch (err) {
       lines = [];
     }
